@@ -9,16 +9,23 @@ class MyAPI < Grape::API
 
   desc "reply"
   post do
-
-    {
-      :xml => {
-        :ToUserName => "<![CDATA[toUser]]>",
-        :FromUserName => "<![CDATA[fromUser]]>",
-        :CreateTime => "12345678",
-        :MsgType => "<![CDATA[text]]>",
-        :Content => "<![CDATA[content]]>",
-        :FuncFlag => "0"
+    builder = Nokogiri::XML::Builder.new do |x|
+      x.xml() {
+        x.ToUserName {
+          x.cdata params[:xml][:ToUserName]
+        }
+        x.FromUserName {
+          x.cdata params[:xml][:FromUserName]
+        }
+        x.CreateTime Time.now.to_i.to_s
+        x.MsgType {
+          x.cdata params[:xml][:MsgType]
+        }
+        x.Content {
+          x.cdata "content"
+        }
+        x.FuncFlag("0")
       }
-    }
+    end
   end
 end

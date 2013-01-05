@@ -23,7 +23,7 @@ end
 gem 'jquery-rails'
 
 gem 'grape'
-
+gem 'nokogiri'
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
@@ -38,3 +38,5 @@ gem 'grape'
 
 # To use debugger
 # gem 'debugger'
+# gem 'pry'
+# gem 'pry-nav'
