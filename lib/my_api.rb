@@ -20,18 +20,19 @@ class MyAPI < Grape::API
 
   desc "reply"
   post do
-    Rails.logger.info params
+    body = Hash.from_xml(request.body.read)
+    Rails.logger.info body
     builder = Nokogiri::XML::Builder.new do |x|
       x.xml() {
         x.ToUserName {
-          x.cdata params[:xml][:FromUserName]
+          x.cdata body['xml']['FromUserName']
         }
         x.FromUserName {
-          x.cdata params[:xml][:ToUserName]
+          x.cdata body['xml']['ToUserName']
         }
         x.CreateTime Time.now.to_i.to_s
         x.MsgType {
-          x.cdata params[:xml][:MsgType]
+          x.cdata body['xml']['MsgType']
         }
         x.Content {
           x.cdata "content"
@@ -41,7 +42,6 @@ class MyAPI < Grape::API
     end
     #Rails.logger.info builder.doc.root.to_xml
     output = builder.to_xml(:save_with => Nokogiri::XML::Node::SaveOptions::AS_XML | Nokogiri::XML::Node::SaveOptions::NO_DECLARATION).strip    
-    #builder.doc.root.to_xml
     Rails.logger.info output
     output
   end
