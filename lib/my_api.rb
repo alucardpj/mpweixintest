@@ -3,6 +3,7 @@ require 'digest/sha1'
 class MyAPI < Grape::API
   version 'v1', :using => :path
   format :xml
+  content_type :xml, "text/xml"
 
   helpers do
     def checksignature(signature, timestamp, nonce)
@@ -35,14 +36,15 @@ class MyAPI < Grape::API
           x.cdata body['xml']['MsgType']
         }
         x.Content {
-          x.cdata "content"
+          x.cdata body['xml']['Content']
         }
         x.FuncFlag("0")
       }
     end
     #Rails.logger.info builder.doc.root.to_xml
-    output = builder.to_xml(:save_with => Nokogiri::XML::Node::SaveOptions::AS_XML | Nokogiri::XML::Node::SaveOptions::NO_DECLARATION).strip    
-    Rails.logger.info output
-    output
+    #builder.to_xml(:save_with => Nokogiri::XML::Node::SaveOptions::NO_DECLARATION)
+    # Rails.logger.info output
+    #output
+    #builder
   end
 end
