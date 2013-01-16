@@ -22,7 +22,7 @@ class MyAPI < Grape::API
   desc "reply"
   post do
     body = Hash.from_xml(request.body.read)
-    Rails.logger.info body
+    status("200")
     builder = Nokogiri::XML::Builder.new do |x|
       x.xml() {
         x.ToUserName {
@@ -41,10 +41,5 @@ class MyAPI < Grape::API
         x.FuncFlag("0")
       }
     end
-    #Rails.logger.info builder.doc.root.to_xml
-    #builder.to_xml(:save_with => Nokogiri::XML::Node::SaveOptions::NO_DECLARATION)
-    # Rails.logger.info output
-    #output
-    #builder
   end
 end
