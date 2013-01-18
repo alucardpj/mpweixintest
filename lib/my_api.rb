@@ -23,6 +23,12 @@ class MyAPI < Grape::API
   post do
     body = Hash.from_xml(request.body.read)
     status("200")
+    case body['xml']['MsgType']
+    when "text"
+      reply = body['xml']['Content']
+    when "location"
+      reply = "#{body['xml']['Location_X']}, #{body['xml']['Location_Y']}, #{body['xml']['Label']}"
+    end
     builder = Nokogiri::XML::Builder.new do |x|
       x.xml() {
         x.ToUserName {
@@ -36,7 +42,7 @@ class MyAPI < Grape::API
           x.cdata body['xml']['MsgType']
         }
         x.Content {
-          x.cdata body['xml']['Content']
+          x.cdata reply
         }
         x.FuncFlag("0")
       }
