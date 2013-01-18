@@ -1,4 +1,5 @@
 require 'digest/sha1'
+require 'net/http'
 
 class MyAPI < Grape::API
   version 'v1', :using => :path
@@ -27,7 +28,9 @@ class MyAPI < Grape::API
     when "text"
       reply = body['xml']['Content']
     when "location"
-      reply = "#{body['xml']['Location_X']}, #{body['xml']['Location_Y']}, #{body['xml']['Label']}"
+      url = "http://api.map.baidu.com/geocoder?location=#{body['xml']['Location_X']},#{body['xml']['Location_Y']}&output=json&key=9d303595cfbaa7f96ab0e7f56c1fd29f"
+      result = JSON::parse(Net::HTTP.get(URI(url)))
+      reply = result["result"]["formatted_address"]
     end
     builder = Nokogiri::XML::Builder.new do |x|
       x.xml() {
