@@ -39,7 +39,7 @@ class MyAPI < Grape::API
         }
         x.CreateTime Time.now.to_i.to_s
         x.MsgType {
-          x.cdata body['xml']['MsgType']
+          x.cdata "text"
         }
         x.Content {
           x.cdata reply
