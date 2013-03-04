@@ -2,12 +2,6 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.12'
 
-# Bundle edge Rails instead:
-# gem 'rails', :git => 'git://github.com/rails/rails.git'
-
-gem 'sqlite3'
-
-
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
@@ -22,8 +16,6 @@ end
 
 gem 'jquery-rails'
 
-gem 'grape'
-gem 'nokogiri'
 gem 'settingslogic'
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
@@ -39,5 +31,7 @@ gem 'settingslogic'
 
 # To use debugger
 # gem 'debugger'
-gem 'pry'
-gem 'pry-nav'
+group :development do
+  gem 'pry'
+  gem 'pry-nav'
+end
