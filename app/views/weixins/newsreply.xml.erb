@@ -5,8 +5,8 @@
     <MsgType><![CDATA[news]]></MsgType>
     <ArticleCount><%= @articles.count %></ArticleCount>
     <Articles>
-        <% articles.each do |article| %>
-        <% render :partial => 'newsitem', :locals => { :article => article } %>
+        <% @articles.each do |article| %>
+        <%= render :partial => 'newsitem', :locals => { :article => article } %>
         <% end %>
     </Articles>
 </xml> 
