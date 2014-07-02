@@ -8,7 +8,8 @@ class WeixinsController < ApplicationController
 
   def reply_text
     @reply = params[:xml][:Content]
-    render "reply", formats: :xml
+    #render "reply", formats: :xml
+    render "musicreply", formats: :xml
   end
 
   def reply_image
