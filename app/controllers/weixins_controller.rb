@@ -9,7 +9,17 @@ class WeixinsController < ApplicationController
   def reply_text
     @reply = params[:xml][:Content]
     #render "reply", formats: :xml
-    render "musicreply", formats: :xml
+    #render "musicreply", formats: :xml
+    @articles = []
+    3.times.each do |e|
+      news = News.new
+      news.title = e.to_s
+      news.description = e.to_s
+      news.picurl = "http://www.muu.com.cn/img/d/848aae3922f63684f34cc09f91f86bb4a1a5d7ea791bc2a8bd9fc90ae2f70f8f92d1d271fc28d9b6.jpg"
+      news.url = "http://www.baidu.com"
+      @articles << news
+    end
+    render "newsreply", formats: :xml
   end
 
   def reply_image
